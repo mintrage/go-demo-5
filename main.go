@@ -1,10 +1,10 @@
 package main
 
 import (
+	"demo/weather/geo"
+	"demo/weather/weather"
 	"flag"
 	"fmt"
-	"io"
-	"strings"
 )
 
 func main() {
@@ -15,15 +15,12 @@ func main() {
 	flag.Parse()
 
 	fmt.Println(*city)
-	fmt.Println(*format)
 
-	r := strings.NewReader("Привет! Я поток данных")
-	block := make([]byte, 4)
-	for {
-		_, err := r.Read(block)
-		fmt.Printf("%q\n", block)
-		if err == io.EOF {
-			break
-		}
+	geoData, err := geo.GetMyLocation(*city)
+	if err != nil {
+		fmt.Println(err.Error())
 	}
+	fmt.Println(geoData)
+	weatherData := weather.GetWeather(*geoData, *format)
+	fmt.Println(weatherData)
 }
