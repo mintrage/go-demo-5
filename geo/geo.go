@@ -21,7 +21,7 @@ func GetMyLocation(city string) (*GeoData, error) {
 	if city != "" {
 		isCity := checkCity(city)
 		if !isCity {
-			panic("Такого города нет")
+			return nil, errors.New("NOCITY")
 		}
 		return &GeoData{
 			City: city,
@@ -49,7 +49,7 @@ func checkCity(city string) bool {
 	postBody, _ := json.Marshal(map[string]string{
 		"city": city,
 	})
-	resp, err := http.Post("https://countriesnow.space/api/v0.1/countries/population/", "application/json", bytes.NewBuffer(postBody))
+	resp, err := http.Post("https://countriesnow.space/api/v0.1/countries/population/cities", "application/json", bytes.NewBuffer(postBody))
 	if err != nil {
 		return false
 	}
