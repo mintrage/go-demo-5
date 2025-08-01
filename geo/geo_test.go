@@ -2,7 +2,7 @@ package geo_test
 
 import "testing"
 
-func TestetMyLocation(t *testing.T) {
+func TestGetMyLocation(t *testing.T) {
 	//Arrange - подготовка, expected результат
 
 	//Act - выполняем функцию
